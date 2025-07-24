@@ -2,8 +2,10 @@
 
 How to run
 
-python3 find_wrongwords.py           # uses epoch 166
-python3 find_wrongwords.py 170       # overrides epoch on the fly
+"""python3 find_wrongwords.py"""           
+# uses epoch 166
+"""python3 find_wrongwords.py 170"""       
+# overrides epoch on the fly
 
 You’ll see a live log like:
 

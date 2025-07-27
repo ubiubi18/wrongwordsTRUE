@@ -1,3 +1,5 @@
+the script has the epoch wrong, it is always +1 !
+
 sudo ./summarize_wrongwords.py
 Epoch Summary: One vs. Multiple Reported Flips
 

@@ -8,7 +8,7 @@ import os, sys, time, json, requests
 from datetime import datetime
 
 # ====== USER CONFIG ======
-EPOCHS_BACK = 50                        # how many finished epochs to scan
+EPOCHS_BACK = 60                        # how many finished epochs to scan
 LIMIT       = 100                       # page size for /Flips list
 SLEEP_LIST  = 0.10                      # delay between list pages (sec)
 SLEEP_FLIP  = 0.05                      # delay between per‑flip queries (sec)

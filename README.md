@@ -4,12 +4,12 @@ How to run
 
 ```bash 
 python3 find_wrongwords.py
+
 ```          
-# uses epoch 166
+or for last 60 epochs
 ```bash 
-python3 find_wrongwords.py 170
+python3 findwrongwordshistoric.py
 ```       
-# overrides epoch on the fly
 
 You’ll see a live log like:
 

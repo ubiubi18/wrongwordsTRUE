@@ -3,7 +3,7 @@ import requests
 import time
 
 # ========== CONFIG ==========
-EPOCH = 166         # ← change epoch here or override via CLI (see below)
+EPOCH = 168         # ← change epoch here or override via CLI (see below)
 LIMIT = 100         # page size for /Flips list
 SLEEP_LIST = 0.10   # pause between list‑page requests
 SLEEP_FLIP = 0.05   # pause between per‑flip queries

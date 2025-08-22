@@ -259,7 +259,7 @@ python3 summarize_wrongwords.py
 
 ## License
 
-No license file is present at the time of writing. Add a LICENSE if you want others to reuse the code.
+MIT
 
 ## Acknowledgments
 

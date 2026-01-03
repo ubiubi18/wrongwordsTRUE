@@ -28,6 +28,10 @@ Background material about penalties for reported flips is included in
   - [1) find_wrongwords.py - single epoch](#1-find_wrongwordspy---single-epoch)
   - [2) findwrongwordshistoric.py - rolling window](#2-findwrongwordshistoricpy---rolling-window)
   - [3) summarize_wrongwords.py - CSV and plots](#3-summarize_wrongwordspy---csv-and-plots)
+- [Flip gradeScore leaderboards (excluding wrongWords bad authors)](#flip-gradescore-leaderboards-excluding-wrongwords-bad-authors)
+  - [Run](#run)
+  - [Top 50 flips by gradeScore](#top-50-flips-by-gradescore)
+  - [Top 50 identities by sum gradeScore](#top-50-identities-by-sum-gradescore)
 - [Outputs](#outputs)
 - [Examples](#examples)
 - [Tips - performance and rate limits](#tips---performance-and-rate-limits)
@@ -181,6 +185,60 @@ Windows PowerShell:
 setx MPLBACKEND Agg
 python3 summarize_wrongwords.py
 ```
+
+## Flip gradeScore leaderboards (excluding wrongWords bad authors)
+
+Generate leaderboards for one epoch that rank flips by gradeScore and identities by the sum of their flips' gradeScores. The script filters out authors marked as `wrongWords` bad authors, prints top results to the console, and writes CSV plus metadata files to disk. You can filter by flip status, skip zero scores, and control pagination and pacing to stay within API limits.
+
+### Run
+
+macOS/Linux:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -U pip requests
+python3 flip_gradescore_leaderboard.py --epoch 176 --page-size 100 --top 50 --out-dir ./out_flip_leaderboards --status Qualified --status WeaklyQualified --sleep-per-page 0.1
+```
+
+Windows PowerShell:
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -U pip requests
+py .\flip_gradescore_leaderboard.py --epoch 176 --page-size 100 --top 50 --out-dir .\out_flip_leaderboards --status Qualified --status WeaklyQualified --sleep-per-page 0.1
+```
+
+### Top 50 flips by gradeScore
+
+The script prints the leading flips under `=== TOP FLIPS (by gradeScore) ===`. To review the same rows from the CSV output:
+
+```bash
+head -n 51 ./out_flip_leaderboards/epoch_176_flip_leaderboard.csv
+```
+
+Windows PowerShell:
+
+```powershell
+Get-Content .\out_flip_leaderboards\epoch_176_flip_leaderboard.csv -TotalCount 51
+```
+
+### Top 50 identities by sum gradeScore
+
+The console also lists the top identities under `=== TOP IDENTITIES (sum gradeScore) ===`. To view those entries from the CSV:
+
+```bash
+head -n 51 ./out_flip_leaderboards/epoch_176_identity_leaderboard.csv
+```
+
+Windows PowerShell:
+
+```powershell
+Get-Content .\out_flip_leaderboards\epoch_176_identity_leaderboard.csv -TotalCount 51
+```
+
+API limit max is 100, do not set `--page-size` above 100.
 
 ## Outputs
 

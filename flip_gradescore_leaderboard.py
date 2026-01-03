@@ -189,6 +189,7 @@ def main() -> int:
         default=[],
         help="Filter by flip status (repeatable). Example: --status Qualified --status WeaklyQualified",
     )
+    ap.add_argument("--address", default="", help="Optional address to look up in identity leaderboard (prints rank).")
     args = ap.parse_args()
 
     api = IdenaApi(base_url=args.base_url)
@@ -288,6 +289,26 @@ def main() -> int:
         avg = total / count if count else 0.0
         id_rows.append({"address": addr, "totalGradeScore": total, "flipCount": count, "avgGradeScore": avg, "maxFlipGradeScore": max_gs})
     id_sorted = sorted(id_rows, key=lambda x: (x["totalGradeScore"], x["flipCount"], x["address"]), reverse=True)
+
+    # Optional: print rank for a specific address
+    query_addr = (args.address or "").strip().lower()
+    if query_addr:
+        if query_addr in bad_authors:
+            print(f"\n[i] Address {query_addr} is excluded (WrongWords bad author)")
+        else:
+            found = False
+            for rank_idx, row in enumerate(id_sorted, start=1):
+                if row["address"] == query_addr:
+                    print("\n=== ADDRESS RANK (identity leaderboard) ===")
+                    print(
+                        f"rank={rank_idx} totalGradeScore={row['totalGradeScore']:.4f} "
+                        f"flips={row['flipCount']} avg={row['avgGradeScore']:.4f} "
+                        f"max={row['maxFlipGradeScore']:.4f} address={query_addr}"
+                    )
+                    found = True
+                    break
+            if not found:
+                print(f"\n[i] Address {query_addr} not found in identity leaderboard (maybe no flips kept due to filters).")
 
     # Print top to console
     top = max(0, int(args.top))
